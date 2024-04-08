@@ -20,54 +20,54 @@ class _AddGkItemsState extends State<AddGkItems> {
   final TextEditingController option4Controller = TextEditingController();
   final TextEditingController correctAnswerController = TextEditingController();
 
-  CollectionReference _widgetQuestionsCollection =
+  final CollectionReference _widgetQuestionsCollection =
   FirebaseFirestore.instance.collection('math');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add math Question'),
+        title: const Text('Add math Question'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
               controller: idController,
-              decoration: InputDecoration(labelText: 'ID'),
+              decoration: const InputDecoration(labelText: 'ID'),
             ),
             TextField(
               controller: textController,
-              decoration: InputDecoration(labelText: 'Question Text'),
+              decoration: const InputDecoration(labelText: 'Question Text'),
             ),
             TextField(
               controller: option1Controller,
-              decoration: InputDecoration(labelText: 'Option 1'),
+              decoration: const InputDecoration(labelText: 'Option 1'),
             ),
             TextField(
               controller: option2Controller,
-              decoration: InputDecoration(labelText: 'Option 2'),
+              decoration: const InputDecoration(labelText: 'Option 2'),
             ),
             TextField(
               controller: option3Controller,
-              decoration: InputDecoration(labelText: 'Option 3'),
+              decoration: const InputDecoration(labelText: 'Option 3'),
             ),
             TextField(
               controller: option4Controller,
-              decoration: InputDecoration(labelText: 'Option 4'),
+              decoration: const InputDecoration(labelText: 'Option 4'),
             ),
             TextField(
               controller: correctAnswerController,
-              decoration: InputDecoration(labelText: 'Correct Answer'),
+              decoration: const InputDecoration(labelText: 'Correct Answer'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 addQuestion();
               },
-              child: Text('Add Question'),
+              child: const Text('Add Question'),
             ),
           ],
         ),
@@ -108,7 +108,7 @@ class _AddGkItemsState extends State<AddGkItems> {
         },
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Question added successfully'),
         ),
       );
@@ -123,7 +123,7 @@ class _AddGkItemsState extends State<AddGkItems> {
     } catch (e) {
       print('Error adding question: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Error adding question. Please try again.'),
         ),
       );
