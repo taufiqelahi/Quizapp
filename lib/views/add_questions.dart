@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quiz/models/flutter_topics_model.dart';
 import 'package:quiz/views/add_items/add_bangla_items.dart';
@@ -10,15 +11,25 @@ class AddQuestionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(itemCount: flutterTopicsList.length, itemBuilder: (BuildContext context, int index) {
-        final topicsData = flutterTopicsList[index];
-        return ListTile(
-          onTap: (){
-            navigatePages(context: context, topicName: topicsData.topicName);
-          },
-          title:Text(topicsData.topicName ),
-        );
-      },),
+      appBar: AppBar(),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: ListView.builder(itemCount: flutterTopicsList.length, itemBuilder: (BuildContext context, int index) {
+          final topicsData = flutterTopicsList[index];
+          return Card(
+
+            child: ListTile(
+              contentPadding: EdgeInsets.all(10),
+              onTap: (){
+                navigatePages(context: context, topicName: topicsData.topicName);
+              },
+              title:Text(topicsData.topicName ,style: TextStyle(fontSize: 20),),
+             leading: Image.asset(topicsData.image,height: 30,width: 50,),
+              trailing: Icon(CupertinoIcons.add_circled_solid),
+            ),
+          );
+        },),
+      ),
     );
   }
 
