@@ -1,7 +1,3 @@
-import 'package:quiz/models/layout_questions_model.dart';
-import 'package:quiz/models/naviagation_questions_model.dart';
-import 'package:quiz/models/widget_questions_model.dart';
-import 'package:quiz/models/state_questions_model.dart';
 import 'package:flutter/cupertino.dart';
 
 const Color cardColor = Color(0xFF4993FA);
