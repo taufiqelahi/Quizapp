@@ -94,19 +94,8 @@ class _AddGkItemsState extends State<AddGkItems> {
         ),
       );
 
-      await _widgetQuestionsCollection.add({
-        'id': question.id,
-        'text': question.text,
-        'options': question.options
-            .map((option) =>
-        {'text': option.text, 'isCorrect': option.isCorrect})
-            .toList(),
-        'isLocked': question.isLocked,
-        'correctAnswer': {
-          'text': question.correctAnswer.text,
-          'isCorrect': question.correctAnswer.isCorrect
-        },
-      });
+
+      await _widgetQuestionsCollection.add(question.toJson());
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Question added successfully'),

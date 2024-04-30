@@ -16,8 +16,30 @@ class WidgetQuestion {
     required this.id,
     required this.correctAnswer,
   });
+  factory WidgetQuestion.fromJson(Map<String, dynamic> json) {
+    // Extracting data from JSON
 
-  WidgetQuestion copyWith() {
+    return WidgetQuestion(
+      id: json['id'],
+      text: json['text'],
+      options:(json['options'] as List<dynamic>).map((optionJson) => WiidgetOption.fromJson(optionJson)).toList(),
+      isLocked: json['isLocked'],
+      selectedWiidgetOption: json['selectedWiidgetOption'] != null ? WiidgetOption.fromJson(json['selectedWiidgetOption']) : null,
+      correctAnswer: WiidgetOption.fromJson(json['correctAnswer']),
+    );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'text': text,
+      'options': options.map((option) => option.toJson()).toList(),
+      'isLocked': isLocked,
+
+      'correctAnswer': correctAnswer.toJson(),
+    };
+  }
+
+ copyWith() {
     return WidgetQuestion(
       id: id,
       text: text,
@@ -40,6 +62,21 @@ class WiidgetOption {
     this.text,
     this.isCorrect,
   });
+  factory WiidgetOption.fromJson(Map<String, dynamic> json) {
+    // Extracting data from JSON
+
+    return WiidgetOption(
+      text: json['text'],
+      isCorrect: json['isCorrect']
+
+    );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+     'text':text,
+      'isCorrect':isCorrect
+    };
+  }
 }
 
 

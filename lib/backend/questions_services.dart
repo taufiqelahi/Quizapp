@@ -10,21 +10,8 @@ class QuestionServices {
       QuerySnapshot querySnapshot = await _widgetQuestionsCollection.get();
       return querySnapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        return WidgetQuestion(
-          id: data['id'],
-          text: data['text'],
-          options: (data['options'] as List<dynamic>).map((option) {
-            return WiidgetOption(
-              text: option['text'],
-              isCorrect: option['isCorrect'],
-            );
-          }).toList(),
-          isLocked: data['isLocked'],
-          correctAnswer: WiidgetOption(
-            text: data['correctAnswer']['text'],
-            isCorrect: data['correctAnswer']['isCorrect'],
-          ),
-        );
+
+        return WidgetQuestion.fromJson(data);
       }).toList();
     } catch (e) {
       print('Error getting widget questions: $e');
