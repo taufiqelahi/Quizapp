@@ -14,13 +14,15 @@ class HomePage extends StatelessWidget {
     const Color bgColor3 = Color(0xFF5170FD);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: bgColor3,
+        title: Text('Hey Add your questions',style: TextStyle(color: Colors.white),),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => AddQuestionScreen()));
             },
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.add,color: Colors.white,),
           )
         ],
       ),
@@ -54,7 +56,7 @@ class HomePage extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: "Flutter ",
+                        text: "Make your own ",
                         style:
                             Theme.of(context).textTheme.headlineSmall!.copyWith(
                                   fontSize: 21,
@@ -62,9 +64,9 @@ class HomePage extends StatelessWidget {
                                   fontWeight: FontWeight.w400,
                                 ),
                       ),
-                      for (var i = 0; i < "Riddles!!!".length; i++) ...[
+                      for (var i = 0; i < "Quiz!!!".length; i++) ...[
                         TextSpan(
-                          text: "Riddles!!!"[i],
+                          text: "Quiz!!!"[i],
                           style: Theme.of(context)
                               .textTheme
                               .headlineSmall!

@@ -4,14 +4,14 @@ import 'package:quiz/models/widget_questions_model.dart';
 
 
 
-class AddGkItems extends StatefulWidget {
-  const AddGkItems({super.key});
+class AddMathItems extends StatefulWidget {
+  const AddMathItems({super.key});
 
   @override
-  State<AddGkItems> createState() => _AddGkItemsState();
+  State<AddMathItems> createState() => _AddMathItemsState();
 }
 
-class _AddGkItemsState extends State<AddGkItems> {
+class _AddMathItemsState extends State<AddMathItems> {
   final TextEditingController idController = TextEditingController();
   final TextEditingController textController = TextEditingController();
   final TextEditingController option1Controller = TextEditingController();
@@ -19,6 +19,8 @@ class _AddGkItemsState extends State<AddGkItems> {
   final TextEditingController option3Controller = TextEditingController();
   final TextEditingController option4Controller = TextEditingController();
   final TextEditingController correctAnswerController = TextEditingController();
+  final TextEditingController flashCardController = TextEditingController();
+
 
   final CollectionReference _widgetQuestionsCollection =
   FirebaseFirestore.instance.collection('math');
@@ -62,6 +64,10 @@ class _AddGkItemsState extends State<AddGkItems> {
               controller: correctAnswerController,
               decoration: const InputDecoration(labelText: 'Correct Answer'),
             ),
+            TextField(
+              controller: flashCardController,
+              decoration: const InputDecoration(labelText: 'Flash card'),
+            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
@@ -91,22 +97,10 @@ class _AddGkItemsState extends State<AddGkItems> {
         correctAnswer: WiidgetOption(
           text: correctAnswerController.text,
           isCorrect: true,
-        ),
+        ), flashCardData: flashCardController.text,
       );
 
-      await _widgetQuestionsCollection.add({
-        'id': question.id,
-        'text': question.text,
-        'options': question.options
-            .map((option) =>
-        {'text': option.text, 'isCorrect': option.isCorrect})
-            .toList(),
-        'isLocked': question.isLocked,
-        'correctAnswer': {
-          'text': question.correctAnswer.text,
-          'isCorrect': question.correctAnswer.isCorrect
-        },
-      });
+      await _widgetQuestionsCollection.add(question.toJson());
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Question added successfully'),
@@ -120,6 +114,7 @@ class _AddGkItemsState extends State<AddGkItems> {
       option3Controller.clear();
       option4Controller.clear();
       correctAnswerController.clear();
+      flashCardController.clear();
     } catch (e) {
       print('Error adding question: $e');
       ScaffoldMessenger.of(context).showSnackBar(

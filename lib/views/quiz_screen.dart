@@ -196,7 +196,6 @@ class _QuizScreenState extends State<QuizScreen> {
 
                                 return Column(
                                   children: [
-                                  
                                     Text(
                                       myquestions.text,
                                       style: Theme.of(context)

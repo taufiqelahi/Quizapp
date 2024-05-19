@@ -19,6 +19,8 @@ class _AddBanglaItemsState extends State<AddBanglaItems> {
   final TextEditingController option3Controller = TextEditingController();
   final TextEditingController option4Controller = TextEditingController();
   final TextEditingController correctAnswerController = TextEditingController();
+  final TextEditingController flashCardController = TextEditingController();
+
 
   final CollectionReference _widgetQuestionsCollection =
   FirebaseFirestore.instance.collection('bangla');
@@ -62,6 +64,10 @@ class _AddBanglaItemsState extends State<AddBanglaItems> {
               controller: correctAnswerController,
               decoration: const InputDecoration(labelText: 'Correct Answer'),
             ),
+            TextField(
+              controller: flashCardController,
+              decoration: const InputDecoration(labelText: 'Flash card'),
+            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
@@ -91,7 +97,7 @@ class _AddBanglaItemsState extends State<AddBanglaItems> {
         correctAnswer: WiidgetOption(
           text: correctAnswerController.text,
           isCorrect: true,
-        ),
+        ), flashCardData: flashCardController.text,
       );
 
       await _widgetQuestionsCollection.add(question.toJson());
@@ -108,6 +114,7 @@ class _AddBanglaItemsState extends State<AddBanglaItems> {
       option3Controller.clear();
       option4Controller.clear();
       correctAnswerController.clear();
+      flashCardController.clear();
     } catch (e) {
       print('Error adding question: $e');
       ScaffoldMessenger.of(context).showSnackBar(

@@ -4,6 +4,7 @@ import 'package:quiz/models/flutter_topics_model.dart';
 import 'package:quiz/views/add_items/add_bangla_items.dart';
 import 'package:quiz/views/add_items/add_english_items.dart';
 import 'package:quiz/views/add_items/add_gk_items.dart';
+import 'package:quiz/views/add_items/add_math_items.dart';
 
 class AddQuestionScreen extends StatelessWidget {
   const AddQuestionScreen({super.key});
@@ -42,7 +43,7 @@ class AddQuestionScreen extends StatelessWidget {
       case 'সাধারণ জ্ঞান':
         return Navigator.push(context, MaterialPageRoute(builder: (_)=>AddGkItems()));
       case 'গণিত':
-          return Navigator.push(context, MaterialPageRoute(builder: (_)=>AddGkItems()));
+          return Navigator.push(context, MaterialPageRoute(builder: (_)=>AddMathItems()));
 
       default:
         return Navigator.push(context, MaterialPageRoute(builder: (_)=>AddEnglishItems()));

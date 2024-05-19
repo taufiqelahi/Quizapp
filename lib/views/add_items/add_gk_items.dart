@@ -19,6 +19,8 @@ class _AddGkItemsState extends State<AddGkItems> {
   final TextEditingController option3Controller = TextEditingController();
   final TextEditingController option4Controller = TextEditingController();
   final TextEditingController correctAnswerController = TextEditingController();
+  final TextEditingController flashCardController = TextEditingController();
+
 
   final CollectionReference _widgetQuestionsCollection =
   FirebaseFirestore.instance.collection('gk');
@@ -62,6 +64,10 @@ class _AddGkItemsState extends State<AddGkItems> {
               controller: correctAnswerController,
               decoration: const InputDecoration(labelText: 'Correct Answer'),
             ),
+            TextField(
+              controller: flashCardController,
+              decoration: const InputDecoration(labelText: 'flash card'),
+            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
@@ -91,7 +97,7 @@ class _AddGkItemsState extends State<AddGkItems> {
         correctAnswer: WiidgetOption(
           text: correctAnswerController.text,
           isCorrect: true,
-        ),
+        ), flashCardData: flashCardController.text,
       );
 
 
@@ -109,6 +115,7 @@ class _AddGkItemsState extends State<AddGkItems> {
       option3Controller.clear();
       option4Controller.clear();
       correctAnswerController.clear();
+      flashCardController.clear();
     } catch (e) {
       print('Error adding question: $e');
       ScaffoldMessenger.of(context).showSnackBar(

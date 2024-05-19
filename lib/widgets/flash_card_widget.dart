@@ -10,7 +10,7 @@ class FlipCardsWidget extends StatelessWidget {
       required this.cardsLenght,
       required this.question,
       required this.answer,
-      required this.currentTopic});
+      required this.currentTopic, required this.flashCardData});
 
   final Color bgColor;
   final int currentIndex;
@@ -18,6 +18,7 @@ class FlipCardsWidget extends StatelessWidget {
   final String question;
   final String answer;
   final String currentTopic;
+  final String flashCardData;
 
   @override
   Widget build(BuildContext context) {
@@ -72,10 +73,10 @@ class FlipCardsWidget extends StatelessWidget {
                   const Spacer(),
                   Center(
                     child: Text(
-                      question,
+                      flashCardData,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.w500),
                       textAlign: TextAlign.center,
                     ),
@@ -171,6 +172,15 @@ class FlipCardsWidget extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
+                  Text(
+                    question,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 30,),
                   Center(
                     child: Text(
                       answer,

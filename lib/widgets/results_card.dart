@@ -32,40 +32,40 @@ class ResultsCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: Center(
-                      child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          children: [
-                            for (var ii = 0;
-                                ii < "Congratulations!,".length;
-                                ii++) ...[
-                              TextSpan(
-                                text: "Congratulations!,"[ii],
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(fontSize: 12 + ii.toDouble()),
-                              ),
-                            ],
-                            //m'adamfo(Twi) - my friend
-                            TextSpan(
-                              text: "  m'adamfo\n You Scored  \n",
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                            TextSpan(
-                              text: "$roundedPercentageScore%",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                    fontSize: 30,
-                                  ),
-                            ),
-                          ],
+                    child:Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+
+                        Text(
+                          roundedPercentageScore<10?"Oppps...try again":"Congratulations!,",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(fontSize: 30 ),
+                        ),
+
+                    Text(
+                      roundedPercentageScore<10?"Your Score" :"You have completed",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(
+                        fontSize: 16,
+                      ),),
+
+                      Text(
+                         "$roundedPercentageScore%",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(
+                          fontSize: 30,
                         ),
                       ),
-                    ),
+                      ],
+                    )
+                    ,
                   ),
                   CustomPaint(
                     painter: DrawDottedhorizontalline(),
