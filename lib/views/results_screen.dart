@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:quiz/views/dashboard/dashboard.dart';
+import 'package:quiz/views/home_screen.dart';
 import 'package:quiz/widgets/results_card.dart';
 import 'package:flutter/material.dart';
 
-class ResultsScreen extends StatelessWidget {
+class ResultsScreen extends StatefulWidget {
   const ResultsScreen(
       {super.key,
       required this.score,
@@ -12,13 +16,54 @@ class ResultsScreen extends StatelessWidget {
   final String whichTopic;
 
   @override
+  State<ResultsScreen> createState() => _ResultsScreenState();
+}
+
+class _ResultsScreenState extends State<ResultsScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  bool _isProcessing = false;
+
+  Future<void> _updateUserXP() async {
+    setState(() {
+      _isProcessing = true;
+    });
+
+    final int  xp = widget.score * 5;
+    User? user = _auth.currentUser;
+    if (user != null) {
+      try {
+        await _firestore.collection('users').doc(user.uid).update({
+          'xp': FieldValue.increment(xp),
+        });
+        // Navigate back to the first route after updating XP
+      } catch (e) {
+        // Handle error
+        print('Error updating XP: $e');
+      } finally {
+        setState(() {
+          _isProcessing = false;
+        });
+      }
+    } else {
+      setState(() {
+        _isProcessing = false;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     const Color bgColor3 = Color(0xFF5170FD);
-    print(score);
-    print(totalQuestions);
-    final double percentageScore = (score / totalQuestions) * 100;
+
+    print(widget.totalQuestions);
+    final double percentageScore = (widget.score / widget.totalQuestions) * 100;
+
     final int roundedPercentageScore = percentageScore.round();
     const Color cardColor = Color(0xFF4993FA);
+
+
+
     return WillPopScope(
       onWillPop: () {
         Navigator.popUntil(context, (route) => route.isFirst);
@@ -31,8 +76,10 @@ class ResultsScreen extends StatelessWidget {
           elevation: 0,
           actions: [
             IconButton(
-              onPressed: () {
-                Navigator.popUntil(context, (route) => route.isFirst);
+              onPressed: () async {
+                await _updateUserXP();
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>Dashboard()));
+
               },
               icon: const Icon(
                 Icons.close,
@@ -75,7 +122,7 @@ class ResultsScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  whichTopic.toUpperCase(),
+                  widget.whichTopic.toUpperCase(),
                   style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                         fontSize: 15,
                         color: Colors.white,
@@ -97,8 +144,9 @@ class ResultsScreen extends StatelessWidget {
                   ),
                   elevation: MaterialStateProperty.all(4),
                 ),
-                onPressed: () {
-                  Navigator.popUntil(context, (route) => route.isFirst);
+                onPressed: () async {
+                  await _updateUserXP();
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=>Dashboard()));
                 },
                 child: const Text(
                   "Take another test",

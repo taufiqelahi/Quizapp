@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz/models/user.dart';
+import 'package:quiz/views/dashboard/dashboard.dart';
+import 'package:quiz/views/login_page.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -23,17 +26,23 @@ class _SignUpPageState extends State<SignUpPage> {
       User? user = userCredential.user;
 
       if (user != null) {
-        await _firestore.collection('users').doc(user.uid).set({
-          'uid': user.uid,
-          'email': user.email,
-          'username': _usernameController.text.trim(),
-        });
+        Users newUser = Users(
+          uid: user.uid,
+          email: user.email ?? '',
+          username: _usernameController.text.trim(), xp: '0',
+        );
+
+        await _firestore.collection('users').doc(user.uid).set(newUser.toMap());
         // Navigate to Home Page after successful sign-up
       }
     } catch (e) {
       // Handle error
       print(e);
     }
+    _emailController.clear();
+    _passwordController.clear();
+    _usernameController.clear();
+    Navigator.push(context, MaterialPageRoute(builder: (_)=>Dashboard()));
   }
 
   @override

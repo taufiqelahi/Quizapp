@@ -1,8 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:quiz/views/choicePage.dart';
+import 'package:quiz/views/dashboard/dashboard.dart';
 import 'package:quiz/views/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quiz/views/login_page.dart';
+import 'package:quiz/views/splash_screen.dart';
 
 import 'firebase_options.dart';
 
@@ -36,7 +39,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const SplashScreen(),
     );
   }
 }

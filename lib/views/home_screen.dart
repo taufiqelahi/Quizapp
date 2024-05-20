@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:quiz/models/flutter_topics_model.dart';
 import 'package:quiz/views/add_questions.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz/views/choicePage.dart';
 import 'package:quiz/widgets/question_items.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,19 +14,18 @@ class HomePage extends StatelessWidget {
     const Color bgColor = Color(0xFF4993FA);
     const Color bgColor3 = Color(0xFF5170FD);
     return Scaffold(
+      extendBodyBehindAppBar: true,
+
       appBar: AppBar(
-        backgroundColor: bgColor3,
-        title: Text('Hey Add your questions',style: TextStyle(color: Colors.white),),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => AddQuestionScreen()));
-            },
-            icon: Icon(Icons.add,color: Colors.white,),
-          )
-        ],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (_)=>ChoicePage()));
+          },),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
+
       backgroundColor: bgColor3,
       body: SafeArea(
         child: Padding(
@@ -52,32 +52,13 @@ class HomePage extends StatelessWidget {
                 height: 10,
               ),
               Center(
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "Make your own ",
-                        style:
-                            Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                  fontSize: 21,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                      ),
-                      for (var i = 0; i < "Quiz!!!".length; i++) ...[
-                        TextSpan(
-                          text: "Quiz!!!"[i],
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall!
-                              .copyWith(
-                                fontSize: 21 + i.toDouble(),
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400,
-                              ),
-                        ),
-                      ]
-                    ],
+                child: Text(
+                  "Think you know it all? Prove it!",
+                  style:
+                  Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    fontSize: 21,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),
